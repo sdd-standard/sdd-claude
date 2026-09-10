@@ -8,7 +8,7 @@ description: Ciclo de mudança SDD pós-baseline com delta specs (proposal → a
 Nunca edite docs/sdd/specs/ diretamente após o baseline. Fluxo:
 
 1. **Proposal** — docs/sdd/changes/<kebab-name>/proposal.md (template no plugin): Why, What, Scope (in/out), Success Criteria, artefatos impactados. Revise com o usuário.
-2. **Delta spec** — delta-spec.md com seções ADDED / MODIFIED / REMOVED contendo apenas os requisitos GEARS e decisões que mudam. Em brownfield, se a área tocada nunca foi especificada, o delta ADDED inclui a spec "as-built" mínima daquela área (spec-on-touch).
+2. **Delta spec** — delta-spec.md com seções ADDED / MODIFIED / REMOVED contendo apenas os requisitos em sintaxe canônica GEARS (`[Where <estático>] [While <dinâmico>] [When <gatilho>] the <subject> shall <behavior>`, keywords em inglês) e decisões DES que mudam. Em brownfield, se a área tocada nunca foi especificada, o delta ADDED inclui a spec "as-built" mínima daquela área (spec-on-touch).
 3. **Tasks** — tasks.md da mudança, mesmo formato do ledger (com Status).
 4. Gate: **sdd-validator** confere o delta contra constitution e rastreabilidade.
 5. **Apply** — implemente via /sdd-workflow:implement usando as tasks da mudança.

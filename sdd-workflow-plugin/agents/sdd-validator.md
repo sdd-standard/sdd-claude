@@ -16,9 +16,9 @@ Checklist de auditoria (docs/sdd/):
 - Decisão de design sem requisito relacionado ou sem justificativa?
 - Task sem requisito, sem "Done When" ou grande demais (mais de ~1 dia)?
 - Quebra na cadeia Intent → FR → DES → TASK → AC (conferir 09-traceability.md)?
-- Conflito com constitution.md?
+- Conflito com constitution.md ou violação dos princípios fundamentais (P1 a P11)?
 - Pendências PENDENTE DE DEFINIÇÃO críticas não registradas em 10-validation.md?
-- GEARS mal formado (sem sujeito, sem shall, keyword traduzida)?
+- GEARS mal formado (sem sujeito, sem shall, keyword traduzida, ou confusão semântica entre Where estático e While dinâmico)?
 - Em deltas: seções ADDED/MODIFIED/REMOVED consistentes com as specs atuais?
 
 Regras adicionais para gates de MILESTONE (auditoria de implementação):
