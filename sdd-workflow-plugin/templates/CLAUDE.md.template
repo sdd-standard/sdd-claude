@@ -1,0 +1,47 @@
+# {{PROJECT_NAME}} — Contexto do Projeto
+
+{{DESCRICAO_CURTA}}
+
+Stack: {{STACK}}
+
+## Metodologia: Spec-Driven Development (plugin sdd-workflow)
+
+A fonte da verdade é `docs/sdd/`. O código expressa a especificação, nunca a substitui.
+
+- `docs/sdd/constitution.md` — princípios inegociáveis. Valide TUDO contra ela.
+- `docs/sdd/specs/` — estado atual consolidado (artefatos 00–10).
+- `docs/sdd/changes/` — mudanças ativas (proposal + delta-spec + tasks).
+- `docs/sdd/11-project-memory.md` — estado de salvamento entre sessões.
+
+## Protocolo de início de sessão (OBRIGATÓRIO)
+
+Leia nesta ordem antes de trabalhar: constitution → 11-project-memory → 10-validation → tasks Pending/In Progress. Confirme estado e próximo passo em até 5 linhas.
+
+## Regras de execução
+
+- Nunca implemente código sem task com Status In Progress rastreável a um FR/NFR.
+- Atualize Status da task ao iniciar (In Progress) e concluir (Done), no mesmo turno.
+- Atualize 11-project-memory.md a cada evento (artefato aprovado, decisão travada, task mudou de status). Máx. 150 linhas, sobrescreva.
+- Requisitos em GEARS: [Where][While][When] the <subject> shall <behavior>. Keywords em inglês.
+- Ambiguidade → PENDENTE DE DEFINIÇÃO + 10-validation.md. Nunca invente requisito crítico.
+- Mudanças pós-baseline via /sdd-workflow:change, nunca edição direta das specs.
+- SEMPRE confirme com o usuário antes de instalar dependências.
+- Ao fechar um milestone: rode a guarda mecânica `node "${CLAUDE_PLUGIN_ROOT}/scripts/check-ids.mjs" .` (siglas órfãs) e só então o gate de milestone (sdd-validator lê código real) antes de avançar.
+- Achado mecanicamente verificável e reincidente vira task de automação, nunca "verificar manualmente". Critical/High bloqueiam, salvo dívida aceita explicitamente pelo usuário. Milestone seguinte só inicia após aprovação manual; commit só sob pedido.
+- Achado que fica ABERTO em qualquer gate (qualquer severidade) vai para 10-validation.md como dívida ativa — é o backlog de /change. Só achado corrigido no gate vive apenas no ledger. 10-validation guarda SÓ dívida ativa (é lido a cada sessão); ao resolver, mova a entrada para archive/validation-log.md.
+- Divergência que apenas RESTRINGE o design pode virar nota de emenda datada no artefato (aprovada no turno, com ponteiro de reconciliação); mudança de comportamento/escopo é sempre /sdd-workflow:change.
+
+## Fluxo por fase
+
+| Fase | Comando |
+|---|---|
+| Bootstrap (novo/existente) | /sdd-workflow:init · /sdd-workflow:adopt |
+| Brief→Requirements | /sdd-workflow:specify |
+| Domain→Design→Roadmap | /sdd-workflow:design |
+| Tasks→Acceptance→Trace | /sdd-workflow:tasks |
+| Executar task | /sdd-workflow:implement |
+| Mudança/feature | /sdd-workflow:change |
+
+## Git
+
+{{GIT_FLOW}}

@@ -1,0 +1,11 @@
+{
+  "name": "maurissi-sdd",
+  "owner": { "name": "Maurissi" },
+  "plugins": [
+    {
+      "name": "sdd-workflow",
+      "source": "./sdd-workflow-plugin",
+      "description": "Workflow completo de Spec-Driven Development para Claude Code (greenfield e brownfield)."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+# 11 — Project Memory
+<!-- máx. 150 linhas, sobrescrever, atualizado por evento -->
+<!-- Roll-up: ao fechar o gate de um milestone, comprima as entradas por-task dele em 1 linha cada (o detalhe vive no ledger e no git). Memória é ESTADO, não histórico — o limite é de linhas E de densidade: parágrafos-quilômetro numa linha só burlam o teto. -->
+
+### Estado Atual
+- Fase:
+- Última atualização: <data> — evento: <o que disparou>
+
+### Resumo Executivo do Progresso
+
+### Decisões de Arquitetura Travadas
+
+### Próximos Passos Imediatos
+
+### Pendências em Aberto (Blockers)
+
+### Mapa de Estabilidade
+- Estáveis:
+- Em mutação:

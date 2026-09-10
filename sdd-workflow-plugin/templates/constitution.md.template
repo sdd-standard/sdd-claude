@@ -1,0 +1,21 @@
+# Constitution — {{PROJECT_NAME}}
+
+Princípios inegociáveis. Toda spec, design, task e código é validado contra este documento. Só muda por decisão explícita do usuário, registrada com justificativa e data.
+
+## 1. Arquitetura
+<!-- clean architecture? DDD? monorepo? padrões obrigatórios? -->
+
+## 2. Stack fixa
+<!-- linguagens, frameworks, versões pinadas -->
+
+## 3. Política de testes
+<!-- unidade obrigatória onde? E2E como? integração quando? cobertura mínima? -->
+
+## 4. Segurança e conformidade
+<!-- authN/authZ, dados sensíveis, LGPD, auditoria, criptografia -->
+
+## 5. Processo e governança
+<!-- git flow, política de docs, regra de instalação de deps, aprovações -->
+
+## 6. Roteamento de modelos (economia de tokens)
+- Documentação: haiku · Codificação/testes: sonnet · Arquitetura/orquestração: opus
