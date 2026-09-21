@@ -10,7 +10,7 @@ A fonte da verdade é `docs/sdd/`. O código expressa a especificação, nunca a
 Padrão Canônico: https://github.com/sdd-standard/spec-driven-development
 
 - `docs/sdd/constitution.md` — princípios inegociáveis. Valide TUDO contra ela.
-- `docs/sdd/specs/` — estado atual consolidado (artefatos 00–10).
+- `docs/sdd/` — estado atual consolidado (artefatos 00–10).
 - `docs/sdd/changes/` — mudanças ativas (proposal + delta-spec + tasks).
 - `docs/sdd/11-project-memory.md` — estado de salvamento entre sessões.
 

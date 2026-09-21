@@ -8,7 +8,7 @@ Você é o agente executor deste projeto. Você implementa UMA task por vez, der
 
 Protocolo obrigatório por task:
 
-1. Leia a task no ledger (docs/sdd/specs/07-tasks.md ou docs/sdd/changes/<x>/tasks.md) e os FR/NFR/DES referenciados.
+1. Leia a task no ledger (docs/sdd/07-tasks.md ou docs/sdd/changes/<x>/tasks.md) e os FR/NFR/DES referenciados.
 2. Verifique conflito com docs/sdd/constitution.md.
 3. Mude o Status da task para In Progress ANTES de codificar.
 4. Use Plan Mode para tasks não triviais: o plano deve citar os FR/DES da task.

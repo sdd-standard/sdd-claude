@@ -8,7 +8,7 @@ const read = (p) => { try { return readFileSync(resolve(root, p), "utf8"); } cat
 if (!existsSync(resolve(root, "docs/sdd"))) process.exit(0); // projeto sem SDD: silencioso
 
 const memory = read("docs/sdd/11-project-memory.md");
-const tasks = read("docs/sdd/specs/07-tasks.md");
+const tasks = read("docs/sdd/07-tasks.md");
 
 let out = "## Protocolo SDD — estado carregado automaticamente (plugin sdd-workflow)\n";
 out += memory ? `\n${memory}\n` : "\n(11-project-memory.md ainda não existe — rode /sdd-workflow:init ou :adopt)\n";
