@@ -1,4 +1,5 @@
 # Delta Spec — <nome-da-mudanca>
+Status: Draft
 
 ## ADDED
 <!-- novos FR/NFR em GEARS, novas decisões DES -->
