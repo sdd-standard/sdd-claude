@@ -17,5 +17,15 @@ Princípios inegociáveis. Toda spec, design, task e código é validado contra 
 ## 5. Processo e governança
 <!-- git flow, política de docs, regra de instalação de deps, aprovações -->
 
-## 6. Roteamento de modelos (economia de tokens)
+## 6. Calibração de criticidade do domínio (Severidades no Quality Gate)
+<!-- Além da Matriz Canônica Universal SDD (Critical/High bloqueiam; Medium/Low viram dívida ativa),
+     defina aqui o que o domínio específico deste projeto considera inegociável:
+     - O que eleva automaticamente um achado para Critical neste negócio? (ex: precisão financeira, LGPD/PII, perda de estado, auditoria, contrato de API pública)
+     - O que eleva para High? (ex: SLAs de latência, idempotência de filas, acessibilidade obrigatória)
+     - O que pode ser tratado como Medium/Low nesta fase do produto? -->
+- **Eleva para `Critical` neste projeto:**
+- **Eleva para `High` neste projeto:**
+- **Tolerado como `Medium`/`Low` nesta fase:**
+
+## 7. Roteamento de modelos (economia de tokens)
 - Documentação: haiku · Codificação/testes: sonnet · Arquitetura/orquestração: opus

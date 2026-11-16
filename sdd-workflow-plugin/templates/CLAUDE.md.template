@@ -1,60 +1,69 @@
-# {{PROJECT_NAME}} — Contexto do Projeto
+# {{PROJECT_NAME}} — Contexto do Projeto (Claude Code + SDD Puro v2.1)
 
 {{DESCRICAO_CURTA}}
 
 Stack: {{STACK}}
 
-## Metodologia: Spec-Driven Development (plugin sdd-workflow)
+## Metodologia: Spec-Driven Development (plugin `sdd-workflow`)
 
 A fonte da verdade é `docs/sdd/`. O código expressa a especificação, nunca a substitui.  
 Padrão Canônico: https://github.com/sdd-standard/spec-driven-development
 
 - `docs/sdd/constitution.md` — princípios inegociáveis. Valide TUDO contra ela.
-- `docs/sdd/` — estado atual consolidado (artefatos 00–10).
-- `docs/sdd/changes/` — mudanças ativas (proposal + delta-spec + tasks).
-- `docs/sdd/11-project-memory.md` — estado de salvamento entre sessões.
+- `docs/sdd/` — estrutura canônica flat (artefatos `00-project-brief.md` a `11-project-memory.md`).
+- `docs/sdd/changes/` — mudanças ativas (`proposal.md` + `delta-spec.md` + `tasks.md`).
+- `docs/sdd/11-project-memory.md` — estado vivo entre sessões (com suporte a paginação elástica `11-project-memory-02.md`).
+- `docs/sdd/10-validation.md` — backlog vivo de dívidas ativas (com suporte a paginação elástica `10-validation-02.md`).
 
 ### Princípios Canônicos (P1 a P11)
 - **P1**: A especificação é a fonte da verdade (mudança começa na spec).
 - **P2**: Constitution precede a especificação (governa todas as fases).
 - **P3**: A especificação deve ser viva (evolui com o software).
-- **P4**: Rastreabilidade obrigatória (Intent → GEARS → DES → TASK → AC → Teste → Código).
+- **P4**: Rastreabilidade obrigatória (`Intent → GEARS → DES → TASK → AC → Teste → Código`).
 - **P5**: Requisitos verificáveis (proibido termos vagos; use métricas observáveis).
 - **P6**: Ambiguidade tratada cedo (lacunas viram `PENDENTE DE DEFINIÇÃO` + `10-validation.md`).
 - **P7**: Design vem antes da execução (arquitetura e decisões antes de código).
 - **P8**: Tarefas derivam dos artefatos (nenhuma task no ledger sem vínculo).
-- **P9**: Validação contínua em gates (auditoria no código real antes de fechar milestone).
+- **P9**: Validação contínua em gates **100% passivos** (auditoria no código real antes de fechar milestone).
 - **P10**: SDD não é Waterfall (especificação incremental, feedback contínuo).
 - **P11**: Estado fora do chat (memória viva persistida em disco e injetada na sessão).
 
+### Matriz Canônica de Severidades (Quality Gates + Calibração via `constitution.md`)
+- **`Critical` (BLOQUEIA)**: Violação da `constitution.md`, falha de segurança/dados, quebra do Piso Mecânico (`check-ids.mjs` ou testes falhando/não executados após edição), regressão ou cláusula `shall` principal não atendida.
+- **`High` (BLOQUEIA)**: Omissão de condição GEARS (`Where`/`While`/`When`), falha na Infraestrutura Global (middlewares, auth, rotas raiz, banco), requisito sem teste cobrindo seu `AC-xxx` ou *scope creep* fora da spec.
+- **`Medium` (NÃO BLOQUEIA → `10-validation.md`)**: Desvio parcial de `DES-xxx` sem afetar comportamento (`FR`/`AC`), borda secundária sem teste automatizado, item de QA manual ou dívida restrita ao módulo.
+- **`Low` (NÃO BLOQUEIA → `10-validation.md`)**: Divergência cosmética, nomenclatura interna menor ou melhoria opcional.
+*(Nota: Regras específicas na seção 6 da `docs/sdd/constitution.md` calibram e podem elevar a criticidade conforme o domínio deste projeto).*
+
 ## Protocolo de início de sessão (OBRIGATÓRIO)
 
-Leia nesta ordem antes de trabalhar: constitution → 11-project-memory → 10-validation → tasks Pending/In Progress. Confirme estado e próximo passo em até 5 linhas.
+Leia nesta ordem antes de trabalhar: `constitution.md` → `11-project-memory.md` → `10-validation.md` → tasks `Pending`/`In Progress` (e verifique se há avisos de arquivos paginados `-02.md`). Confirme estado e próximo passo em até 5 linhas.
 
-## Regras de execução
+## Regras de execução (v2.1)
 
-- Nunca implemente código sem task com Status In Progress rastreável a um FR/NFR.
-- Atualize Status da task ao iniciar (In Progress) e concluir (Done), no mesmo turno.
-- Atualize 11-project-memory.md a cada evento (artefato aprovado, decisão travada, task mudou de status). Máx. 150 linhas, sobrescreva.
-- Requisitos em GEARS: `[Where <estático>] [While <dinâmico>] [When <gatilho>] the <subject> shall <behavior>`. Keywords sempre em inglês.
-- Ambiguidade → PENDENTE DE DEFINIÇÃO + 10-validation.md. Nunca invente requisito crítico.
-- Mudanças pós-baseline via /sdd-workflow:change, nunca edição direta das specs.
-- SEMPRE confirme com o usuário antes de instalar dependências.
-- Ao fechar um milestone: rode a guarda mecânica `node "${CLAUDE_PLUGIN_ROOT}/scripts/check-ids.mjs" .` (siglas órfãs) e só então o gate de milestone (sdd-validator lê código real) antes de avançar.
-- Achado mecanicamente verificável e reincidente vira task de automação, nunca "verificar manualmente". Critical/High bloqueiam, salvo dívida aceita explicitamente pelo usuário. Milestone seguinte só inicia após aprovação manual; commit só sob pedido.
-- Achado que fica ABERTO em qualquer gate (qualquer severidade) vai para 10-validation.md como dívida ativa — é o backlog de /change. Só achado corrigido no gate vive apenas no ledger. 10-validation guarda SÓ dívida ativa (é lido a cada sessão); ao resolver, mova a entrada para archive/validation-log.md.
-- Divergência que apenas RESTRINGE o design pode virar nota de emenda datada no artefato (aprovada no turno, com ponteiro de reconciliação); mudança de comportamento/escopo é sempre /sdd-workflow:change.
+- **Zero código sem task ativa**: Nunca implemente código sem task com Status `In Progress` rastreável a um `FR-xxx`/`NFR-xxx`.
+- **Entrevista Escopada e Fatiamento**: Ao especificar ou abrir uma mudança (`/sdd-workflow:change`), inspecione **apenas** o código do domínio/módulo em pauta (nunca o repositório inteiro). Faça no máximo 3 a 5 perguntas cirúrgicas com recomendação padrão. Se a mudança pedida pelo usuário for grande demais, proponha fragmentá-la em múltiplas changes ou estreitar a atual e registrar o excedente como dívida ativa/escopo futuro.
+- **Paginação Elástica com Auto-Exclusão (*Overflow Sharding*)**: `11-project-memory.md` e `10-validation.md` têm teto de **150 linhas por arquivo** e **máximo de 4–5 linhas por parágrafo** (proibido criar parágrafos-quilômetro de linha única). Se ultrapassar 150 linhas de conteúdo ativo legítimo, crie `10-validation-02.md` ou `11-project-memory-02.md`, referencie no topo do arquivo principal e **exclua o arquivo `-02.md` assim que as dívidas/frentes forem sanadas** e voltarem a caber no arquivo principal.
+- **Quality Gate 100% Passivo em 3 Camadas**:
+  - Ao fechar um milestone ou change, rode primeiro a **Camada 0 Passiva**: `node "${CLAUDE_PLUGIN_ROOT}/scripts/check-ids.mjs" .` (siglas órfãs) e confirme execução real de testes com `exit code 0` após a última edição.
+  - Em seguida, acione o subagente **`sdd-validator` (100% passivo / read-only)** para auditar em 2 estágios: **Estágio 1 (Conformidade GEARS/AC estrita)** e **Estágio 2 (Qualidade, Constitution e Infra Global)**.
+  - Nenhuma camada do gate edita arquivos; todas apenas reportam divergências para o implementador corrigir.
+- **Confirmação de dependências**: SEMPRE confirme com o usuário antes de instalar dependências novas (`guard-install`).
+- Achado mecanicamente verificável e reincidente vira task de automação, nunca "verificar manualmente". `Critical`/`High` bloqueiam, salvo dívida aceita explicitamente pelo usuário. Milestone seguinte só inicia após aprovação manual; commit só sob pedido.
+- Achado que fica ABERTO em qualquer gate (qualquer severidade) vai para `10-validation.md` como dívida ativa — é o backlog de `/sdd-workflow:change`. Ao resolver, mova a entrada para `archive/validation-log.md`.
+- Divergência que apenas RESTRINGE o design pode virar nota de emenda datada no artefato (aprovada no turno, com ponteiro de reconciliação); mudança de comportamento/escopo é sempre `/sdd-workflow:change`.
 
 ## Fluxo por fase
 
 | Fase | Comando |
 |---|---|
-| Bootstrap (novo/existente) | /sdd-workflow:init · /sdd-workflow:adopt |
-| Brief→Requirements | /sdd-workflow:specify |
-| Domain→Design→Roadmap | /sdd-workflow:design |
-| Tasks→Acceptance→Trace | /sdd-workflow:tasks |
-| Executar task | /sdd-workflow:implement |
-| Mudança/feature | /sdd-workflow:change |
+| Bootstrap (novo/existente) | `/sdd-workflow:init` · `/sdd-workflow:adopt` |
+| Brief → Discovery → Spec → Requirements (GEARS) | `/sdd-workflow:specify` |
+| Validate-Gap → Domain → Design → Roadmap | `/sdd-workflow:design` |
+| Tasks → Acceptance → Trace | `/sdd-workflow:tasks` |
+| Executar task (+ Gate Passivo em 3 Camadas) | `/sdd-workflow:implement` |
+| Quality Gate Manual Passivo | `/sdd-workflow:validate` |
+| Mudança Evolutiva (Delta Spec) | `/sdd-workflow:change` |
 
 ## Git
 

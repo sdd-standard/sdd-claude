@@ -1,6 +1,6 @@
 {
   "name": "sdd-workflow",
-  "description": "Workflow completo de Spec-Driven Development: constitution, specs GEARS, delta specs, ledger de tasks, gates de validação e gestão de memória. Suporta projetos novos (init) e existentes (adopt).",
-  "version": "1.3.0",
+  "description": "Workflow completo de Spec-Driven Development (SDD Puro v2.1): constitution, specs GEARS, delta specs, ledger de tasks, Quality Gate 100% passivo em 3 camadas, entrevista escopada e paginação elástica de memória. Suporta projetos novos (init) e existentes (adopt).",
+  "version": "1.5.0",
   "author": { "name": "Maurissi", "email": "devmaurissi@gmail.com" }
 }
