@@ -1,6 +1,7 @@
 # Constitution — {{PROJECT_NAME}}
 
 Princípios inegociáveis. Toda spec, design, task e código é validado contra este documento. Só muda por decisão explícita do usuário, registrada com justificativa e data.
+A numeração das seções 1 a 8 é canônica (skills, validador e hooks citam "seção 6", "seção 8"): não renumere; seções próprias do projeto entram a partir da 9.
 
 ## 1. Arquitetura
 <!-- clean architecture? DDD? monorepo? padrões obrigatórios? -->
@@ -9,7 +10,7 @@ Princípios inegociáveis. Toda spec, design, task e código é validado contra 
 <!-- linguagens, frameworks, versões pinadas -->
 
 ## 3. Política de testes
-<!-- unidade obrigatória onde? E2E como? integração quando? cobertura mínima? -->
+<!-- unidade obrigatória onde? E2E como? integração quando? cobertura mínima? comando oficial de execução para o Say-Do Gate? -->
 
 ## 4. Segurança e conformidade
 <!-- authN/authZ, dados sensíveis, LGPD, auditoria, criptografia -->
@@ -29,3 +30,9 @@ Princípios inegociáveis. Toda spec, design, task e código é validado contra 
 
 ## 7. Roteamento de modelos (economia de tokens)
 - Documentação: haiku · Codificação/testes: sonnet · Arquitetura/orquestração: opus
+
+## 8. Exceções vigentes (aceites de risco contra esta constitution)
+<!-- Só o usuário cria uma exceção, ao aceitar uma dívida Critical/High que viola uma regra acima.
+     A exceção é escopada e temporária: some daqui quando a dívida é sanada (ou vira emenda definitiva da regra).
+     Formato: - VAL-xxx — regra excetuada: <seção e regra> — escopo: <onde vale> — revisão: <data ou gatilho> — aceito por <quem> em <AAAA-MM-DD> -->
+- Nenhuma.

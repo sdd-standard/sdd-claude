@@ -24,11 +24,14 @@ Quando acionado após fases de especificação, design ou delta-spec (pré-apply
 - Task sem requisito, sem `Done When` ou grande demais (mais de ~1 dia)?
 - Quebra na cadeia `Intent → FR → DES → TASK → AC` (conferir `09-traceability.md`)?
 - Conflito com `constitution.md` ou violação dos princípios fundamentais (P1 a P11)?
-- Pendências `PENDENTE DE DEFINIÇÃO` críticas não registradas em `10-validation.md`?
+- Pendências `PENDENTE DE DEFINIÇÃO` (ou o marcador equivalente `PENDING DEFINITION`) críticas não registradas em `10-validation.md`?
 - GEARS mal formado (sem sujeito, sem `shall`, keyword traduzida, ou confusão semântica entre `Where` estático e `While` dinâmico)?
 - Em deltas: seções `ADDED`/`MODIFIED`/`REMOVED` consistentes com as specs atuais?
-- Violação do ciclo de maturidade (`Draft → Reviewed → Approved`): artefato derivado a partir de artefato anterior que ainda está em `Status: Draft` (sem ter atingido pelo menos `Reviewed`)?
-- Violação da regra de **Paginação Elástica (*Overflow Sharding*)**: arquivo `10-validation.md` ou `11-project-memory.md` com mais de 150 linhas sem shard `-02.md`, ou com "parágrafos-quilômetro" de uma única linha (> 5 linhas visuais)?
+- Violação do ciclo de maturidade (`Draft → Reviewed → Approved`): artefato derivado de outro ainda em `Draft`; `Status` de artefato promovido sem registro de decisão do usuário (só o usuário promove artefato); artefato `Reviewed` (ainda não `Approved`) consumido sem dívida de maturidade (`Type: Maturity`) com snapshot no `10-validation.md`; ou dívida de maturidade cuja base mudou sem revalidação dos dependentes (→ `High`, deriva de spec)?
+- Item `Auto-Approved` fora dos critérios: toca as seções 4 (Segurança) ou 6 (Calibração de Criticidade) da `constitution.md`, não deriva 1:1 de item aprovado pelo usuário nem aplica convenção escrita na constitution, ou não traz `Motivo:`? (→ `High`)
+- Violação da regra de **Paginação Elástica (*Overflow Sharding*)**: `10-validation.md` acima de 150 linhas ou 16.000 caracteres, ou `11-project-memory.md` acima de 150 linhas ou 7.000 caracteres, sem shard `-02.md`?
+- Dívida `VAL` sem os campos obrigatórios (`Issue`, `Evidence`, `Impact`, `Recommendation`, `Closure Criteria`, `History`) ou resumida a ponto de perder evidência `arquivo:linha`, decisão datada do usuário ou critério de fechamento?
+- Aceite de risco irregular: `Critical`/`High` com `Status: Accepted` sem `Risk Acceptance` completo (quem, data, justificativa, revisão), severidade rebaixada no aceite, aceite de falha da Camada 0, ou violação da constitution aceita sem exceção na seção 8 dela?
 
 ---
 
@@ -36,11 +39,14 @@ Quando acionado após fases de especificação, design ou delta-spec (pré-apply
 
 Ao auditar uma implementação (fechamento de milestone ou fechamento de `/sdd-workflow:change`), estruture sua auditoria e seu relatório obrigatoriamente nestes **3 blocos sequenciais (todos 100% passivos)**:
 
-### Bloco 0 — Piso Mecânico Passivo (`check-ids.mjs` + Evidência de Execução)
+### Bloco 0 — Piso Mecânico Passivo (`check-ids.mjs` + `say-do-audit.mjs`)
+Você não tem Bash por design. O orquestrador roda os dois scripts abaixo (ambos somente leitura) antes de acionar você e entrega a **saída bruta** de cada um. Se alguma não foi apresentada, ou veio apenas resumida, peça-a antes de emitir veredito — relato não é prova.
 1. **Integridade de Identificadores (`scripts/check-ids.mjs`)**:
-   - O orquestrador roda `node "${CLAUDE_PLUGIN_ROOT}/scripts/check-ids.mjs" .` antes de acionar você e entrega a saída. Trate-a como piso mecânico da auditoria — se ela não foi apresentada, peça-a antes de emitir veredito. IDs citados sem declaração (em QUALQUER arquivo) são bloqueio mecânico para o implementador corrigir.
-2. **Auditoria de Execução (*Say-Do Check*)**:
-   - Verifique se o implementador comprovou a execução real do comando de testes/build com `exit code 0` após a última edição de código.
+   - IDs citados sem declaração (em QUALQUER arquivo) são bloqueio mecânico para o implementador corrigir.
+2. **Auditoria Mecânica de Execução (*Say-Do Gate* — `scripts/say-do-audit.mjs`)**:
+   - O script lê o ledger gravado pelos hooks `PostToolUse`/`PostToolUseFailure` e comprova se o comando de testes/build rodou com `exit code 0` após a última edição de código.
+   - Só `VERIFIED_PASS` satisfaz o piso. `UNVERIFIED_CODE_EDIT` e `FAILED_AFTER_EDIT` são falha mecânica. `NO_EVIDENCE` **não é aprovação**: exija que o comando oficial de testes (constitution §3) seja rodado e o audit repetido.
+3. **Curto-circuito**: se o Bloco 0 falhar, encerre com `BLOQUEADO` listando apenas as falhas mecânicas. Não gaste os Blocos 1 e 2 sobre piso quebrado.
 
 ### Bloco 1 — Estágio 1 do Validador Passivo: Conformidade Estrita GEARS (`Spec Compliance`)
 Neste estágio, avalie **exclusivamente O QUE foi especificado vs. O QUE foi entregue** (sem misturar com estilo de código):
@@ -75,8 +81,8 @@ Classifique cada achado com severidade **`Critical | High | Medium | Low`**, apl
 Em gates de milestone, use IDs locais ao gate (`VAL-<feat>-Mn-nn`) e classifique cada achado por **DESTINO** segundo o ESTADO dele após o gate:
 
 - **Achado CORRIGIDO pelo implementador durante o gate** (o código passou a conformar a spec) → vive apenas no bloco `"Registro do gate Mn"` do ledger (`07-tasks.md`) como trilha de auditoria.
-- **Achado que permanece ABERTO após o gate** — QUALQUER severidade, seja lacuna aceita, fechamento agendado para Mx ou dívida que sobrevive à feature → além do registro no ledger, **DEVE ser registrado pelo orquestrador no `10-validation.md` global** (ou em `10-validation-02.md` se ultrapassar 150 linhas) como dívida ativa, com ID sequencial global (`VAL-nnn`), 1–2 parágrafos curtos de contexto e ponteiro cruzado ledger↔global.
+- **Achado que permanece ABERTO após o gate** — QUALQUER severidade, seja lacuna aceita, fechamento agendado para Mx ou dívida que sobrevive à feature → além do registro no ledger, **DEVE ser registrado pelo orquestrador no `10-validation.md` global** (ou em `10-validation-02.md` se atingir o gatilho de paginação) como dívida ativa, com ID sequencial global (`VAL-nnn`), os campos obrigatórios do template (sem resumir evidência, decisões ou critério de fechamento) e ponteiro cruzado ledger↔global.
 
 ## Veredito Final
 
-Termine com veredito: **`APROVADO PARA PRÓXIMA FASE`**, **`APROVADO COM RESSALVAS`** (listar o que o usuário precisa ratificar e o que foi registrado como dívida ativa) ou **`BLOQUEADO`** (com o que o implementador deve resolver). Achado `Critical`/`High` NÃO pode passar como ressalva sem aceite explícito do usuário.
+Termine com veredito: **`APROVADO PARA PRÓXIMA FASE`**, **`APROVADO COM RESSALVAS`** (listar o que o usuário precisa ratificar e o que foi registrado como dívida ativa) ou **`BLOQUEADO`** (com o que o implementador deve resolver). Achado `Critical`/`High` só passa como ressalva com **Aceite de Risco do usuário** registrado na `VAL` (severidade mantida; nunca para falha do Bloco 0; violação da constitution só com exceção na seção 8 dela).

@@ -34,5 +34,5 @@ Você é o **Principal Solution Architect** deste projeto, responsável pelas fa
    - Ambiguidade não resolvida → `PENDENTE DE DEFINIÇÃO` + registro imediato em `10-validation.md`. Nunca invente requisito crítico.
    - Termos vagos viram métricas observáveis: "rápido" → latência/percentil; "seguro" → mecanismo; "disponível" → SLA.
 9. **Atualização de Memória e Paginação Elástica (*Overflow Sharding*)**:
-   - Ao concluir cada artefato, atualize `docs/sdd/11-project-memory.md` (teto de 150 linhas por arquivo, máx. 4–5 linhas por parágrafo).
-   - Se o volume de dívidas ativas (`10-validation.md`) ou memória ativa (`11-project-memory.md`) ultrapassar 150 linhas, crie o arquivo paginado irmão (`10-validation-02.md` ou `11-project-memory-02.md`) e adicione o link no cabeçalho do arquivo principal.
+   - Ao concluir cada artefato, atualize `docs/sdd/11-project-memory.md` (gatilho de paginação: 150 linhas ou 7.000 caracteres; nunca resuma para caber).
+   - Se o volume de dívidas ativas (`10-validation.md`) ou memória ativa (`11-project-memory.md`) atingir o gatilho de paginação (150 linhas ou 7.000/16.000 caracteres), crie o arquivo paginado irmão (`10-validation-02.md` ou `11-project-memory-02.md`) e adicione o link no cabeçalho do arquivo principal.

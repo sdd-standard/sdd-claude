@@ -13,7 +13,8 @@ description: Bootstrap SDD em projeto NOVO (greenfield) — cria docs/sdd/ (00..
    - `templates/archive/memory-history.md` → `docs/sdd/archive/`
    - Crie `docs/sdd/changes/` vazio.
 3. **Entrevista Concisa da Constitution (Baixa Fricção)**:
-   - Entreviste o usuário em até 3 a 5 perguntas diretas (com recomendações padrão) sobre: padrões de qualidade, política de testes, convenções de arquitetura, regras de segurança/compliance, stack fixa, git flow, política de docs e regras de instalação de deps.
+   - Entreviste o usuário em até 3 a 5 perguntas diretas (com recomendações padrão) sobre: padrões de qualidade, política de testes (incluindo o comando oficial de verificação usado pelo *Say-Do Gate*), convenções de arquitetura, regras de segurança/compliance, stack fixa, git flow, política de docs e regras de instalação de deps.
+   - Inclua obrigatoriamente a **Calibração de criticidade do domínio** (seção 6 da Constitution): o que, neste negócio, eleva um achado automaticamente para `Critical` ou `High` (ex.: precisão financeira, PII/LGPD, auditoria regulatória, contrato de API pública) e o que é tolerado como `Medium`/`Low` nesta fase.
    - Gere `docs/sdd/constitution.md` a partir de `templates/constitution.md.template`.
 4. **`CLAUDE.md`**: Gere na raiz a partir de `templates/CLAUDE.md.template`, preenchendo nome/descrição do projeto, stack e git flow.
 5. **Memória Inicial**: Inicialize `docs/sdd/11-project-memory.md` (estado: `"projeto inicializado, aguardando /sdd-workflow:specify"`).

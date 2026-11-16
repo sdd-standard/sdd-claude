@@ -5,7 +5,7 @@ description: Fase de design SDD (04→06) — Diagnóstico Validate-Gap, Domain 
 
 # SDD — Design (Fases 04 a 06 — v2.1)
 
-Pré-condição: `02-spec.md` e `03-requirements.md` `Reviewed`/`Approved`. Se não, volte ao `/sdd-workflow:specify`.
+Pré-condição: `02-spec.md` e `03-requirements.md` `Reviewed`/`Approved`. Se não, volte ao `/sdd-workflow:specify`. Se a base estiver só em `Reviewed`, registre antes a dívida de maturidade (`Type: Maturity`, com snapshot dos IDs e do texto consumidos) no `10-validation.md`; o `Status` dos artefatos só muda por decisão do usuário.
 
 Delegue ao subagent **`sdd-architect`**. Fluxo:
 
@@ -19,6 +19,6 @@ Delegue ao subagent **`sdd-architect`**. Fluxo:
    - **`05-design.md`** — arquitetura, componentes, decisões `DES-xxx` (cada uma com `Related Requirements` e `Rationale`), segurança, observabilidade, riscos, trade-offs. Valide contra a `constitution.md`.
    - **`06-roadmap.md`** — MVP, milestones, dependências, critérios de avanço.
 4. **Gate Passivo e Memória**:
-   - Rode gate com o subagent **`sdd-validator`** (100% passivo / `read-only`) após cada artefato e atualize `docs/sdd/11-project-memory.md` (respeitando o teto de 150 linhas e paginação elástica `-02.md`).
+   - Rode gate com o subagent **`sdd-validator`** (100% passivo / `read-only`) após cada artefato e atualize `docs/sdd/11-project-memory.md` (respeitando o gatilho de paginação (150 linhas ou 7.000 caracteres) e paginação elástica `-02.md`).
 
 Regra: requisito diz **O QUE**, design diz **COMO**. Nunca contamine `03-requirements.md` com decisões de implementação.

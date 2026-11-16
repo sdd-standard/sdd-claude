@@ -3,6 +3,6 @@ Status: Draft
 
 | Intent | Requirement | Design | Task | Acceptance |
 |---|---|---|---|---|
-| IB-001 | FR-001 | DES-001 | TASK-001 | AC-001 |
+| IB-xxx | FR-xxx | DES-xxx | TASK-xxx | AC-xxx |
 
 Lacunas conhecidas:

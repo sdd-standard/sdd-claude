@@ -15,7 +15,7 @@ description: Adota SDD em projeto EXISTENTE (brownfield) — extrai constitution
 
 ## Fase 2 — Constitution Extraída + Entrevista
 
-4. Gere `docs/sdd/constitution.md` em duas partes: (a) convenções OBSERVADAS no código (stack, padrões, testes) — confirme com o usuário; (b) regras DESEJADAS daqui em diante (entrevista enxuta: qualidade, segurança, git flow, deps).
+4. Gere `docs/sdd/constitution.md` em duas partes: (a) convenções OBSERVADAS no código (stack, padrões, testes) — confirme com o usuário; (b) regras DESEJADAS daqui em diante (entrevista enxuta: qualidade, segurança, git flow, deps, comando oficial de testes usado pelo *Say-Do Gate*); (c) **Calibração de criticidade do domínio** (seção 6): o que, neste negócio, eleva um achado automaticamente para `Critical` ou `High` (ex.: precisão financeira, PII/LGPD, auditoria regulatória) e o que é tolerado como `Medium`/`Low` nesta fase.
 
 ## Fase 3 — Baseline Mínima "As-Built" (Estrutura Flat em `docs/sdd/`)
 
@@ -24,7 +24,7 @@ description: Adota SDD em projeto EXISTENTE (brownfield) — extrai constitution
    - `02-spec.md` — capacidades atuais em alto nível (sem GEARS retroativo; seção `"As-Built"`).
    - `04-domain-model.md` — mapa dos *bounded contexts* e linguagem ubíqua observada.
    - `05-design.md` — arquitetura *as-built* + decisões conhecidas (marque históricas como `"legado"`).
-   - `07-tasks.md` vazio (ledger) + `10-validation.md` com lacunas conhecidas (com suporte a paginação elástica `10-validation-02.md` se > 150 linhas) + `11-project-memory.md` (a partir de `templates/specs/11-project-memory.md`, com suporte a paginação elástica `11-project-memory-02.md`).
+   - `07-tasks.md` vazio (ledger) + `10-validation.md` com lacunas conhecidas (com suporte a paginação elástica `10-validation-02.md` ao atingir o gatilho de paginação) + `11-project-memory.md` (a partir de `templates/specs/11-project-memory.md`, com suporte a paginação elástica `11-project-memory-02.md`).
    - `changes/` vazio + `archive/validation-log.md` e `archive/memory-history.md` (dos templates em `templates/archive/`, vazios).
    - **NÃO** crie `01`, `03`, `06`, `08`, `09` retroativos — serão criados por mudança, quando necessário.
 6. Gere/atualize `CLAUDE.md` na raiz (`templates/CLAUDE.md.template`), sem sobrescrever regras existentes do usuário.
