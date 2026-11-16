@@ -37,7 +37,7 @@ Padrão Canônico: https://github.com/sdd-standard/spec-driven-development
 
 ## Protocolo de início de sessão (OBRIGATÓRIO)
 
-Leia nesta ordem antes de trabalhar: `constitution.md` → `11-project-memory.md` → `10-validation.md` → tasks `Pending`/`In Progress` (e verifique se há avisos de arquivos paginados `-02.md`). Confirme estado e próximo passo em até 5 linhas.
+Leia nesta ordem antes de trabalhar: `constitution.md` → `11-project-memory.md` → `10-validation.md` → tasks `Pending`/`In Progress` (e verifique se há avisos de arquivos paginados `-02.md`). Confirme estado e próximo passo em até 5 linhas e prossiga com o pedido do usuário no mesmo turno (a confirmação não substitui a ação).
 
 ## Regras de execução (v2.1)
 

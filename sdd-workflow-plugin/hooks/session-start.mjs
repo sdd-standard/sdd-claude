@@ -164,7 +164,7 @@ try {
 } catch {}
 
 const header = "## Protocolo SDD — estado carregado automaticamente (plugin sdd-workflow)\n";
-const footer = "\nSiga o protocolo: confirme estado e próximo passo em até 5 linhas antes de agir.";
+const footer = "\nSiga o protocolo: confirme estado e próximo passo em até 5 linhas e prossiga com o pedido do usuário no mesmo turno (a confirmação não substitui a ação).";
 
 // ── Prioridade 2: memória no orçamento que sobrou ──
 const memoryBudget = INJECTION_BUDGET - SAFETY_MARGIN - header.length - fixed.length - footer.length - 2;

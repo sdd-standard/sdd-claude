@@ -33,6 +33,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **Session hooks list active changes** (`docs/sdd/changes/<name>/`), one line each with the count of unfinished and `In Progress` tasks, flagging changes with no active task (archive likely pending).
 - **Constitution template**: section numbering 1–8 declared canonical (skills and validators cite "section 6" and "section 8"); new section 8 *Exceções vigentes*; section 3 asks for the official Say-Do test command in every plugin.
 - Confirmed against the Claude Code docs that `${CLAUDE_PLUGIN_ROOT}` is substituted inside plugin `SKILL.md` content, so the skills' script paths need no session injection.
+- **Session protocol no longer stalls the turn**: "confirm state and next step in up to 5 lines" now adds "and proceed with the user's request in the same turn". In the Hermes runtime test a local model confirmed the state and ended the turn without acting, which in single-prompt modes means the request is never executed.
 
 ## [1.4.0] - 2026-09-17
 
