@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **Constitution template**: section numbering 1–8 declared canonical (skills and validators cite "section 6" and "section 8"); new section 8 *Exceções vigentes*; section 3 asks for the official Say-Do test command in every plugin.
 - Confirmed against the Claude Code docs that `${CLAUDE_PLUGIN_ROOT}` is substituted inside plugin `SKILL.md` content, so the skills' script paths need no session injection.
 - **Session protocol no longer stalls the turn**: "confirm state and next step in up to 5 lines" now adds "and proceed with the user's request in the same turn". In the Hermes runtime test a local model confirmed the state and ended the turn without acting, which in single-prompt modes means the request is never executed.
+- **Runtime test on Claude Code 2.1.229 (headless `claude -p` with `--plugin-dir`, plugin cloned from GitHub)**: no code change needed. `SessionStart` injects memory, active tasks and active changes; a green `npm test` arrives via `PostToolUse` (exit 0) and a red one via `PostToolUseFailure` (`error: "Exit code 1 ..."`), giving `VERIFIED_PASS` and `FAILED_AFTER_EDIT`; the guard-install `PreToolUse` `ask` decision prevails even over an allowed `npm install` permission.
 
 ## [1.4.0] - 2026-09-17
 
